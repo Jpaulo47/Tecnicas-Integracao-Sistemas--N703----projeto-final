@@ -1,0 +1,134 @@
+{
+  "info": {
+    "name": "Marketplace Artesãos - API Collection",
+    "description": "Coleção Postman para testes da API do Marketplace para Artesãos do Polo de Artesanato da Beira-Mar",
+    "version": "1.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Status da API",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/",
+          "host": ["{{base_url}}"],
+          "path": [""]
+        }
+      }
+    },
+    {
+      "name": "Artesãos",
+      "item": [
+        {
+          "name": "Cadastrar Artesão",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Maria Silva\",\n  \"craft_type\": \"Cerâmica\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/artisans",
+              "host": ["{{base_url}}"],
+              "path": ["artisans"]
+            }
+          }
+        },
+        {
+          "name": "Listar Artesãos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/artisans",
+              "host": ["{{base_url}}"],
+              "path": ["artisans"]
+            }
+          }
+        },
+        {
+          "name": "Buscar Artesão por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/artisans/{{artisan_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["artisans", "{{artisan_id}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Produtos",
+      "item": [
+        {
+          "name": "Cadastrar Produto",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Vaso Artesanal\",\n  \"description\": \"Vaso de cerâmica feito à mão\",\n  \"price\": 150.00,\n  \"stock_quantity\": 5\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/artisans/{{artisan_id}}/products",
+              "host": ["{{base_url}}"],
+              "path": ["artisans", "{{artisan_id}}", "products"]
+            }
+          }
+        },
+        {
+          "name": "Listar Produtos de um Artesão",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/artisans/{{artisan_id}}/products",
+              "host": ["{{base_url}}"],
+              "path": ["artisans", "{{artisan_id}}", "products"]
+            }
+          }
+        },
+        {
+          "name": "Listar Todos os Produtos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/products",
+              "host": ["{{base_url}}"],
+              "path": ["products"]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "artisan_id",
+      "value": "uuid-do-artesao",
+      "type": "string"
+    }
+  ]
+}
