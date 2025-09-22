@@ -12,10 +12,12 @@ A API serve como um integrador central entre esses dois sistemas, facilitando a 
 ## Equipe e Papéis
 
 **Integrantes:**
-- [JOÃO PAULO DA SILVA RODRIGUES] - [2319025] - Desenvolvedor Backend
-- [Nome Completo] - [Matrícula] - Tester/QA  
-- [Nome Completo] - [Matrícula] - Documentador
-- [Nome Completo] - [Matrícula] - Gerente de Projeto
+- [João Paulo da Silva Rodrigues] - [2319025] - Desenvolvedor Principal
+- [José William Alves de Oliveira] - [2326237] - Documentação
+- [Francisco Wanderson da Silva] - [2323860] - Testes
+- [Rayane dos Santos Silva] - [2326292] - Análise de Requisitos
+- [Kamilly Almeida Braz] - [2323788] - Gerente de Projeto
+- [Matheus de Lima Silva] - [2323842] - Revisor de Código
 
 ## Descrição Funcional da Solução
 
@@ -64,6 +66,62 @@ A API foi desenvolvida seguindo os princípios REST e utiliza:
 ├── postman/
 │   └── collection.json  # Coleção Postman
 └── requirements.txt     # Dependências do projeto
+```
+
+### Diagrama de Arquitetura:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    MARKETPLACE DE ARTESÃOS                     │
+│                Polo de Artesanato da Beira-Mar                 │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   SISTEMA DE    │    │   SISTEMA DE    │    │   SISTEMA DE    │
+│   GESTÃO DE     │    │   E-COMMERCE    │    │   INTEGRAÇÃO    │
+│   ARTESÃOS      │    │   PARA CLIENTES │    │   (API REST)    │
+│                 │    │                 │    │                 │
+│ • Cadastro de   │    │ • Visualização  │    │ • FastAPI       │
+│   Artesãos      │    │   de Produtos   │    │ • Endpoints     │
+│ • Cadastro de   │    │ • Catálogo      │    │   REST          │
+│   Produtos      │    │ • Pedidos       │    │ • Validação     │
+│ • Gestão de     │    │ • Carrinho      │    │ • Tratamento    │
+│   Estoque       │    │ • Checkout      │    │   de Erros      │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+         │                       │                       │
+         └───────────────────────┼───────────────────────┘
+                                 │
+                    ┌─────────────────┐
+                    │   API GATEWAY   │
+                    │   (FastAPI)     │
+                    │                 │
+                    │ • Autenticação  │
+                    │ • Rate Limiting │
+                    │ • Logging       │
+                    │ • Monitoramento │
+                    └─────────────────┘
+                                 │
+                    ┌─────────────────┐
+                    │  CAMADA DE      │
+                    │  APLICAÇÃO      │
+                    │                 │
+                    │ • Controllers   │
+                    │ • Services      │
+                    │ • Business      │
+                    │   Logic         │
+                    │ • Validation    │
+                    └─────────────────┘
+                                 │
+                    ┌─────────────────┐
+                    │  CAMADA DE      │
+                    │  DADOS          │
+                    │                 │
+                    │ • In-Memory     │
+                    │   Database      │
+                    │ • Models        │
+                    │ • Repositories  │
+                    │ • Data Access   │
+                    └─────────────────┘
 ```
 
 ### Modelos de Dados:

@@ -6,15 +6,117 @@ A API do Marketplace para Artesãos do Polo de Artesanato da Beira-Mar foi proje
 
 ## Diagrama de Arquitetura
 
-```
-[PLACEHOLDER PARA DIAGRAMA DE ARQUITETURA]
+### Visão Geral do Sistema
 
-O diagrama será inserido aqui mostrando:
-- Cliente/Sistema de E-commerce
-- API Gateway (FastAPI)
-- Camada de Aplicação
-- Camada de Dados (Banco em Memória)
-- Sistema de Gestão de Artesãos
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    MARKETPLACE DE ARTESÃOS                     │
+│                Polo de Artesanato da Beira-Mar                 │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   SISTEMA DE    │    │   SISTEMA DE    │    │   SISTEMA DE    │
+│   GESTÃO DE     │    │   E-COMMERCE    │    │   INTEGRAÇÃO    │
+│   ARTESÃOS      │    │   PARA CLIENTES │    │   (API REST)    │
+│                 │    │                 │    │                 │
+│ • Cadastro de   │    │ • Visualização  │    │ • FastAPI       │
+│   Artesãos      │    │   de Produtos   │    │ • Endpoints     │
+│ • Cadastro de   │    │ • Catálogo      │    │   REST          │
+│   Produtos      │    │ • Pedidos       │    │ • Validação     │
+│ • Gestão de     │    │ • Carrinho      │    │ • Tratamento    │
+│   Estoque       │    │ • Checkout      │    │   de Erros      │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+         │                       │                       │
+         └───────────────────────┼───────────────────────┘
+                                 │
+                    ┌─────────────────┐
+                    │   API GATEWAY   │
+                    │   (FastAPI)     │
+                    │                 │
+                    │ • Autenticação  │
+                    │ • Rate Limiting │
+                    │ • Logging       │
+                    │ • Monitoramento │
+                    └─────────────────┘
+                                 │
+                    ┌─────────────────┐
+                    │  CAMADA DE      │
+                    │  APLICAÇÃO      │
+                    │                 │
+                    │ • Controllers   │
+                    │ • Services      │
+                    │ • Business      │
+                    │   Logic         │
+                    │ • Validation    │
+                    └─────────────────┘
+                                 │
+                    ┌─────────────────┐
+                    │  CAMADA DE      │
+                    │  DADOS          │
+                    │                 │
+                    │ • In-Memory     │
+                    │   Database      │
+                    │ • Models        │
+                    │ • Repositories  │
+                    │ • Data Access   │
+                    └─────────────────┘
+```
+
+### Fluxo de Dados
+
+```
+1. CADASTRO DE ARTESÃO:
+   Sistema Gestão → API → Validação → Armazenamento → Resposta
+
+2. CADASTRO DE PRODUTO:
+   Sistema Gestão → API → Validação → Verificação Artesão → Armazenamento → Resposta
+
+3. LISTAGEM DE PRODUTOS:
+   Sistema E-commerce → API → Busca Dados → Serialização → Resposta JSON
+
+4. CONSULTA DE ARTESÃO:
+   Sistema E-commerce → API → Busca por ID → Validação → Resposta JSON
+```
+
+### Componentes da Arquitetura
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                        CLIENTES                                │
+├─────────────────────────────────────────────────────────────────┤
+│ • Artesãos (Sistema de Gestão)                                 │
+│ • Clientes (Sistema de E-commerce)                             │
+│ • Administradores                                               │
+└─────────────────────────────────────────────────────────────────┘
+                                │
+                                ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                    CAMADA DE APRESENTAÇÃO                      │
+├─────────────────────────────────────────────────────────────────┤
+│ • FastAPI Framework                                             │
+│ • Pydantic Models (Validação)                                  │
+│ • Swagger/OpenAPI (Documentação)                               │
+│ • Exception Handlers (Tratamento de Erros)                     │
+└─────────────────────────────────────────────────────────────────┘
+                                │
+                                ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                    CAMADA DE APLICAÇÃO                         │
+├─────────────────────────────────────────────────────────────────┤
+│ • Controllers/Endpoints                                         │
+│ • Business Logic                                                │
+│ • Validation Services                                           │
+│ • Error Handling                                                │
+└─────────────────────────────────────────────────────────────────┘
+                                │
+                                ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                      CAMADA DE DADOS                           │
+├─────────────────────────────────────────────────────────────────┤
+│ • In-Memory Database (artisans_db, products_db)                │
+│ • Data Models (Artisan, Product)                               │
+│ • Repository Pattern                                            │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
 ## Componentes da Arquitetura
