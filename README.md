@@ -177,20 +177,34 @@ pip install -r requirements.txt
 
 ### Execução:
 
-1. **Iniciar a API:**
+1. **Verificar disponibilidade da porta:**
+```bash
+# Verificar se a porta 8000 está livre
+netstat -ano | findstr :8000  # Windows
+# lsof -i :8000               # Linux/Mac
+```
+
+2. **Iniciar a API:**
 ```bash
 # Opção 1: Usando uvicorn diretamente
 uvicorn src.main:app --reload --host 0.0.0.0 --port 8000
 
 # Opção 2: Usando o script principal
 python src/main.py
+
+# Opção 3: Usando o script de execução
+python run.py
 ```
 
-2. **Acessar a documentação:**
+**⚠️ Importante:** Certifique-se de que a porta 8000 esteja disponível. Se houver conflito, você pode:
+- Parar o processo que está usando a porta: `taskkill /PID [PID] /F` (Windows)
+- Ou usar uma porta diferente: `uvicorn src.main:app --port 8001`
+
+3. **Acessar a documentação:**
 - Swagger UI: http://localhost:8000/docs
 - ReDoc: http://localhost:8000/redoc
 
-3. **Executar testes:**
+4. **Executar testes:**
 ```bash
 pytest tests/ -v
 ```
@@ -373,6 +387,45 @@ Para contribuir com o projeto:
 3. Commit suas mudanças (`git commit -am 'Adiciona nova funcionalidade'`)
 4. Push para a branch (`git push origin feature/nova-funcionalidade`)
 5. Abra um Pull Request
+
+## Solução de Problemas
+
+### **Erro: Porta 8000 já está em uso**
+```bash
+# Verificar qual processo está usando a porta
+netstat -ano | findstr :8000  # Windows
+lsof -i :8000                 # Linux/Mac
+
+# Parar o processo (Windows)
+taskkill /PID [PID] /F
+
+# Ou usar uma porta diferente
+uvicorn src.main:app --port 8001
+```
+
+### **Erro: Módulo não encontrado**
+```bash
+# Verificar se as dependências estão instaladas
+pip install -r requirements.txt
+
+# Verificar se está no ambiente virtual correto
+python --version
+pip list
+```
+
+### **Erro: Testes falhando**
+```bash
+# Executar testes com mais detalhes
+pytest tests/ -v --tb=short
+
+# Verificar se a API está rodando
+curl http://localhost:8000/
+```
+
+### **Erro: JSON inválido no Postman**
+- Verifique se o `Content-Type: application/json` está definido
+- Valide o JSON em jsonlint.com
+- Use aspas duplas em todos os campos
 
 ## Licença
 
