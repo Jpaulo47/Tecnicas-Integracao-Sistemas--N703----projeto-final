@@ -157,7 +157,7 @@ A API foi desenvolvida seguindo os princípios REST e utiliza:
 
 1. **Clone o repositório:**
 ```bash
-git clone []
+git clone [https://github.com/Jpaulo47/Tecnicas-Integracao-Sistemas--N703----projeto-final.git]
 cd marketplace-artesaoes
 ```
 
